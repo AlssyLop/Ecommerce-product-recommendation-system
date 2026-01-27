@@ -35,11 +35,11 @@ st.markdown("---")
 def load_data():
     """Carga el dataset de ratings"""
     try:
-        # Intentar cargar desde la ruta del notebook
-        data_path = Path(r'C:\Users\Usuario\Desktop\prueba\ratings_Electronics.csv')
+        # Intentar cargar desde la ruta del proyecto
+        data_path = Path(__file__).parent / 'ratings_Electronics.csv'
         if not data_path.exists():
             st.error(f"❌ No se encontró el archivo en: {data_path}")
-            st.info("Por favor, asegúrate de que el archivo ratings_Electronics.csv esté en la ubicación correcta")
+            st.info("Por favor, asegúrate de que el archivo ratings_Electronics.csv esté en la carpeta del proyecto")
             return None, None, None, None, None
         
         df = pd.read_csv(data_path, header=None)
