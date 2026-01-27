@@ -1,0 +1,79 @@
+# Entorno Virtual
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Archivos de datos grandes
+ratings_Electronics.csv
+*.csv
+
+# Archivos de caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribuciones / empaquetado
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Directorios de instalación de pip
+.pip-cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# Entornos
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de prueba
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Archivos de bloqueo
+*.lock
