@@ -7,7 +7,7 @@ set -e
 
 # Obtener directorio actual
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$SCRIPT_DIR"
+cd "$SCRIPT_DIR/.."
 
 # Verificar que el entorno virtual existe
 if [ ! -f ".venv/bin/activate" ]; then
@@ -33,7 +33,7 @@ echo "========================================"
 echo ""
 
 # Verificar que existen las tablas de la BD relacional
-if [ ! -f "db_usuarios.csv" ]; then
+if [ ! -f "data/db_usuarios.csv" ]; then
     echo "Creando tablas de la base de datos relacional..."
     python crear_base_datos_relacional.py
     if [ $? -ne 0 ]; then
@@ -59,7 +59,7 @@ echo "Presiona Ctrl+C para detener la aplicación"
 echo ""
 
 # Ejecutar la aplicación mejorada con BD relacional
-streamlit run app_relacional.py
+streamlit run src/app_relacional.py
 
 exit 0
 

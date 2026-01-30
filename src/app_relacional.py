@@ -340,9 +340,9 @@ st.markdown("""
 def load_relational_database():
     """Carga las tablas de la base de datos relacional"""
     try:
-        project_dir = Path(__file__).parent
+        project_dir = Path(__file__).parent.parent / 'data'
         
-        df_usuarios = pd.read_csv(project_dir / 'db_usuarios.csv', on_bad_lines='skip')
+        df_usuarios = pd.read_csv(project_dir / 'db_usuarios.csv', sep=';', on_bad_lines='skip')
         df_productos = pd.read_csv(project_dir / 'db_productos.csv', sep=';', on_bad_lines='skip')
         df_calificaciones = pd.read_csv(project_dir / 'db_calificaciones_completo.csv', on_bad_lines='skip')
         
@@ -379,7 +379,7 @@ def load_relational_database():
 def load_data():
     """Carga el dataset de ratings y crea matrices necesarias"""
     try:
-        data_path = Path(__file__).parent / 'ratings_Electronics.csv'
+        data_path = Path(__file__).parent.parent / 'data' / 'ratings_Electronics.csv'
         if not data_path.exists():
             return None, None, None, None, None, None, None
         
@@ -546,37 +546,67 @@ def obtener_contexto_datos(db_usuarios, db_productos, db_calificaciones):
     usuarios_activos = db_usuarios[db_usuarios['total_calificaciones'] > 0].shape[0]
     
     contexto = f"""
-CONTEXTO DE BASE DE DATOS - E-COMMERCE:
+Eres un **analista experto en e-commerce y estrategia comercial**, especializado en análisis de datos,
+comportamiento de clientes y optimización de catálogos de productos.
 
-📊 ESTADÍSTICAS GENERALES:
+A continuación se te proporciona un **resumen estadístico de la base de datos de un e-commerce**.
+Debes analizarla y generar **respuestas claras, estratégicas y basadas únicamente en los datos proporcionados**.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 CONTEXTO DE LA BASE DE DATOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔹 ESTADÍSTICAS GENERALES:
 - Total de Usuarios: {stats['total_usuarios']}
 - Usuarios Activos: {usuarios_activos}
 - Total de Productos: {stats['total_productos']}
 - Total de Calificaciones: {stats['total_calificaciones']}
-- Rating Promedio: {stats['rating_promedio']:.2f}/5.0
-- Tasa de Conversión: {(stats['total_calificaciones']/stats['total_usuarios']*100):.1f}%
+- Rating Promedio: {stats['rating_promedio']:.2f} / 5.0
+- Tasa de Conversión (reseñas/usuarios): {(stats['total_calificaciones']/stats['total_usuarios']*100):.1f} %
 
-💰 ANÁLISIS DE PRECIOS:
+🔹 ANÁLISIS DE PRECIOS:
 - Precio Promedio: ${stats['precio_promedio']:.2f}
 - Precio Mínimo: ${stats['precio_min']:.2f}
 - Precio Máximo: ${stats['precio_max']:.2f}
 
-📦 PRODUCTOS MÁS VENDIDOS:
-{chr(10).join([f"  - {p['nombre_producto']}: {p['cantidad_resenas']} reseñas" for p in top_productos])}
+🔹 PRODUCTOS MÁS POPULARES (por número de reseñas):
+{chr(10).join([f"- {p['nombre_producto']}: {p['cantidad_resenas']} reseñas" for p in top_productos])}
 
-🏷️ PRODUCTOS EN CATÁLOGO:
-{', '.join(db_productos['nombre_producto'].head(20).tolist())} (y más...)
+🔹 PRODUCTOS DISPONIBLES EN EL CATÁLOGO:
+{', '.join(db_productos['nombre_producto'].head(20).tolist())} (y más…)
 
-📂 MARCAS/CATEGORÍAS:
+🔹 DISTRIBUCIÓN POR CATEGORÍAS:
 - Pantalones: 5 productos
-- Camisas: 5 productos  
+- Camisas: 5 productos
 - Camisetas: 5 productos
 - Zapatos: 5 productos
 - Chaquetas: 4 productos
 - Accesorios: 21 productos
 
-Por favor, analiza esta información y responde preguntas inteligentes sobre la base de datos, 
-sugerencias de negocio, recomendaciones de productos a agregar, estrategias de venta, etc.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📌 INSTRUCCIONES DE ANÁLISIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Utiliza **solo esta información** para:
+
+1️⃣ Detectar patrones relevantes de comportamiento del cliente  
+2️⃣ Identificar oportunidades comerciales y riesgos  
+3️⃣ Proponer mejoras en el catálogo y surtido de productos  
+4️⃣ Recomendar estrategias de ventas y marketing  
+5️⃣ Responder preguntas analíticas que se te formulen posteriormente  
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧠 FORMATO DE RESPUESTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+- Usa lenguaje claro y profesional
+- Organiza la respuesta con títulos y viñetas
+- Incluye recomendaciones accionables
+- Justifica cada sugerencia con los datos disponibles
+- No inventes métricas ni supongas información no incluida
+
+Si faltan datos para una conclusión, indícalo explícitamente.
+
 """
     return contexto
 

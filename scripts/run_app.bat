@@ -6,7 +6,7 @@ setlocal enabledelayedexpansion
 
 REM Obtener la ruta del directorio actual
 set SCRIPT_DIR=%~dp0
-cd /d "%SCRIPT_DIR%"
+cd /d "%SCRIPT_DIR%.."
 
 REM Verificar que el entorno virtual existe
 if not exist ".venv\Scripts\activate.bat" (
@@ -33,7 +33,7 @@ echo ========================================
 echo.
 
 REM Verificar que existen las tablas de la BD relacional
-if not exist "db_usuarios.csv" (
+if not exist "data\db_usuarios.csv" (
     echo Creando tablas de la base de datos relacional...
     python crear_base_datos_relacional.py
     if errorlevel 1 (
@@ -60,7 +60,7 @@ echo Presiona Ctrl+C para detener la aplicacion
 echo.
 
 REM Ejecutar la aplicación mejorada con BD relacional
-streamlit run app_relacional.py
+streamlit run src\app_relacional.py
 
 pause
 exit /b 0
