@@ -5,6 +5,9 @@ ENV/
 env/
 .env
 
+# Streamlit Secrets (IMPORTANTE - contiene API Keys)
+.streamlit/secrets.toml
+
 # Archivos de datos grandes
 ratings_Electronics.csv
 *.csv
@@ -77,3 +80,5 @@ htmlcov/
 
 # Archivos de bloqueo
 *.lock
+# Archivos de configuración de Streamlit
+.streamlit/secrets.toml

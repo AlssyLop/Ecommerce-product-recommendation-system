@@ -1,52 +1,139 @@
-# Ecommerce-product-recommendation-system
+# 💎 LUXE ESSENCE - Sistema de Recomendación Premium
 
-Product Recommendation System is a machine learning-based project that provides personalized product recommendations to users based on their browsing and purchase history. The system utilizes collaborative filtering and content-based filtering algorithms to analyze user behavior and generate relevant recommendations. This project aims to improve the overall shopping experience for users, increase sales for e-commerce businesses
+## 🎯 Descripción
 
-## Dataset
+**LUXE ESSENCE** es un sistema inteligente de recomendación de productos de moda con interfaz premium. Utiliza algoritmos de aprendizaje automático, inteligencia artificial conversacional y análisis profundos para proporcionar recomendaciones personalizadas.
 
-I have used an amazon dataset on user ratings for electronic products, this dataset doesn't have any headers. To avoid biases,  each product and user is assigned a unique identifier instead of using their name or any other potentially biased information.
+### ✨ Características Principales
 
-* You can find the [dataset](https://www.kaggle.com/datasets/vibivij/amazon-electronics-rating-datasetrecommendation/download?datasetVersionNumber=1) here - https://www.kaggle.com/datasets/vibivij/amazon-electronics-rating-datasetrecommendation/download?datasetVersionNumber=1 
+- **Chat IA Flotante**: Asistente inteligente disponible 24/7 en esquina inferior derecha
+- **Búsqueda Avanzada**: 50 prendas de moda seleccionadas con filtros flexibles
+- **Recomendaciones Personalizadas**: Basadas en algoritmos de filtrado colaborativo
+- **Análisis de Tendencias**: 4 tipos de insights inteligentes
+- **Interfaz Premium**: Tema oscuro elegante con acentos dorados
+- **Datos en Tiempo Real**: Estadísticas y métricas actualizadas
 
-* You can find many other similar datasets here - https://jmcauley.ucsd.edu/data/amazon/
+## 🚀 Instalación Rápida
 
+### Paso 1: Instalar dependencias
+```bash
+pip install -r requirements.txt
+```
 
-## Approach
+### Paso 2: Configurar API Key
+Crear archivo `.streamlit/secrets.toml`:
+```toml
+GROQ_API_KEY = "tu_clave_aqui"
+```
 
-### **1) Rank Based Product Recommendation**
-Objective -
-* Recommend products with highest number of ratings.
-* Target new customers with most popular products.
-* Solve the [Cold Start Problem](https://github.com/Vaibhav67979/Ecommerce-product-recommendation-system/blob/18d7fb2b8feafd117f7c3f9f859255c2e28cfbe4/ColdStartProblem.md)
+### Paso 3: Ejecutar
+```bash
+streamlit run app_relacional.py
+```
 
-Outputs -
-* Recommend top 5 products with 50/100 minimum ratings/interactions.
+Accede a `http://localhost:8501`
 
-Approach -
-* Calculate average rating for each product.
-* Calculate total number of ratings for each product.
-* Create a DataFrame using these values and sort it by average.
-* Write a function to get 'n' top products with specified minimum number of interactions.
+## 📋 Estructura de Datos
 
+**Base de Datos Relacional:**
+- `db_usuarios.csv`: 1,540 usuarios verificados
+- `db_productos.csv`: 50 prendas de moda exclusivas
+- `db_calificaciones_completo.csv`: 1,017+ reseñas certificadas
 
-### **2) Similarity based Collaborative filtering**
-Objective -
-* Provide personalized and relevant recommendations to users.
+## 🧠 Algoritmos de Recomendación
 
-Outputs -
-* Recommend top 5 products based on interactions of similar users.
+### 1. Filtrado Colaborativo Basado en Usuarios
+Encuentra usuarios similares y recomienda productos que compraron.
+- Similitud por coseno
+- Top 5 usuarios similares
+- Filtra compras previas
 
-Approach -
-* Here, user_id is of object, for our convenience we convert it to value of 0 to 1539(integer type).
-* We write a function to find similar users - 
-  1. Find the similarity score of the desired user with each user in the interaction matrix using cosine_similarity and append to an empty list and sort it.
-  2. extract the similar user and similarity scores from the sorted list 
-  3. remove original user and its similarity score and return the rest.
-* We write a function to recommend users - 
-  1. Call the previous similar users function to get the similar users for the desired user_id.
-  2. Find prod_ids with which the original user has interacted -> observed_interactions
-  3. For each similar user Find 'n' products with which the similar user has interacted with but not the actual user.
-  4. return the specified number of products. 
+### 2. Descomposición SVD (Matriz Factorización)
+Predice ratings usando factores latentes.
+- 30 dimensiones
+- Mayor precisión
+- Mejora con más datos
+
+## 📚 Documentación
+
+Documentación completa disponible en **DOCUMENTACION.md**.
+
+Incluye:
+- Guía de instalación detallada
+- Estructura técnica
+- Troubleshooting
+- API Key setup
+
+## 🎨 Tecnologías Utilizadas
+
+- **Frontend**: Streamlit
+- **Backend**: Python 3.9+
+- **Machine Learning**: Scikit-Learn
+- **Inteligencia Artificial**: Groq API
+- **Bases de Datos**: CSV (relacional)
+
+## 📊 Estadísticas del Sistema
+
+| Métrica | Valor |
+|---------|-------|
+| Usuarios Registrados | 1,540 |
+| Prendas Disponibles | 50 |
+| Reseñas Totales | 1,017+ |
+| Rating Promedio | 4.3/5 ⭐ |
+| Rango de Precios | $10 - $299 |
+
+## 💬 Chat IA
+
+Presiona el botón 💬 en la esquina inferior derecha para:
+- Preguntar sobre moda y tendencias
+- Obtener recomendaciones personalizadas
+- Analizar productos específicos
+- Resolver dudas sobre el catálogo
+
+## 🔧 Configuración Técnica
+
+### Página Principal
+**app_relacional.py** - Aplicación Streamlit principal (1,277 líneas)
+
+### Funciones Clave
+- `load_relational_database()`: Carga datos
+- `responder_con_groq()`: Procesa preguntas con IA
+- `obtener_recomendaciones_svd()`: Calcula recomendaciones
+- `mostrar_producto_grid()`: Renderiza tarjetas
+
+## 🔐 Seguridad
+
+- Procesamiento local de datos
+- API Key en `secrets.toml` (no versionado)
+- Sin almacenamiento externo
+- Conexión segura a Groq
+
+## 📞 Soporte
+
+1. Consulta **DOCUMENTACION.md** para detalles técnicos
+2. Revisa los logs en terminal
+3. Verifica la validez de tu API Key
+4. Comprueba la conexión a internet
+
+## 📝 Historial de Versiones
+
+### v2.0 - Premium Redesign (ACTUAL)
+✅ Chat flotante en esquina inferior derecha
+✅ Rebranding a "LUXE ESSENCE"
+✅ Código optimizado y limpio
+✅ Documentación consolidada
+✅ Tema premium oscuro + oro
+
+### v1.0 - Base Original
+- Algoritmos de recomendación
+- Interface básica
+- Integración IA Google Gemini
+
+---
+
+**Desarrollado con ❤️ usando Python, Streamlit e IA Groq**
+
+*¡Disfruta tu experiencia LUXE ESSENCE!* 💎 
 
 ### **3) Model based Collaborative filtering**
 Objective -
